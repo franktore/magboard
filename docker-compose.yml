@@ -29,7 +29,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      args:
+    #   args:
         # http_proxy: "${HTTP_PREFIX}${HTTP_PROXY}"
         # https_proxy: "${HTTP_PREFIX}${HTTPS_PROXY}"
     command: "./entry_point.sh"
