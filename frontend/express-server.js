@@ -14,22 +14,22 @@ const apiVersion = `v${process.env.API_VERSION}` || 'v1.0';
 app.use(compression());
 app.use(staticPath, express.static(path.join(__dirname, 'build')));
 
-const apiProxyPath =
-  staticPath !== '' ? `${staticPath}/${apiVersion}/api` : `/${apiVersion}/api`;
-function pathRewriteFn(rewritePath) {
-  console.log('called', rewritePath);
-  return rewritePath.replace(apiProxyPath, `${apiVersion}/api`);
-}
-const proxyOptions = {
-  target: 'http://localhost:8000',
-  changeOrigin: true,
-  pathRewrite: pathRewriteFn,
-};
-console.log('apiProxyPath: ', apiProxyPath);
-app.use(apiProxyPath, createProxyMiddleware(proxyOptions));
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// const apiProxyPath =
+//   staticPath !== '' ? `${staticPath}/${apiVersion}/api` : `/${apiVersion}/api`;
+// function pathRewriteFn(rewritePath) {
+//   console.log('called', rewritePath);
+//   return rewritePath.replace(apiProxyPath, `${apiVersion}/api`);
+// }
+// const proxyOptions = {
+//   target: 'http://localhost:8000',
+//   changeOrigin: true,
+//   pathRewrite: pathRewriteFn,
+// };
+// console.log('apiProxyPath: ', apiProxyPath);
+// app.use(apiProxyPath, createProxyMiddleware(proxyOptions));
+// app.use((req, res) => {
+//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 
 // start express server on port 3000
 app.listen(3000, () => {
