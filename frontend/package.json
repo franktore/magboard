@@ -1,8 +1,8 @@
 {
-  "name": "tactics-board",
+  "name": "magboard",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gljubojevic.github.io/tactics-board",
+  "homepage": "https://franktore.github.io/magboard",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -17,12 +17,18 @@
     "react-scripts": "4.0.3"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build-storybook": "build-storybook -s public",
+    "build:run": "node express-server.js",
+    "check-types": "tsc",
+    "eject": "react-scripts eject",
+    "find-unused-exports": "./node_modules/.bin/ts-unused-exports ./tsconfig.json",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts|tsx)\"",
+    "fue": "yarn find-unused-exports",
+    "health-check": "yarn find-unused-exports ; yarn audit ; yarn outdated",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"

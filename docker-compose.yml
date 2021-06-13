@@ -1,0 +1,49 @@
+version: "3.3"
+
+services:
+#   backend:
+#     build:
+#       context: ./backend
+#       args:
+#         http_proxy: "${HTTP_PREFIX}${HTTP_PROXY}"
+#         https_proxy: "${HTTP_PREFIX}${HTTPS_PROXY}"
+#     expose:
+#       - "8000"
+#     ports:
+#       - "8000:8000"
+#     environment:
+#     #   - HTTP_PROXY=${HTTP_PROXY}
+#     #   - HTTPS_PROXY=${HTTPS_PROXY}
+
+#     volumes:
+#       - type: bind
+#         source: ~/.azure
+#         target: /app/.azure
+#         read_only: false
+#       - static_volume:/var/www/html/static_django
+
+
+  #########################
+  # Setup client container
+  #########################
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # http_proxy: "${HTTP_PREFIX}${HTTP_PROXY}"
+        # https_proxy: "${HTTP_PREFIX}${HTTPS_PROXY}"
+    command: "./entry_point.sh"
+    expose:
+      - "80"
+      - "2222"
+    ports:
+      - "80:80"
+      - "2222:2222"
+    environment:
+      - PUBLIC_URL=
+    #   - REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}
+    #   - REACT_APP_TENANT=${REACT_APP_TENANT}
+    #   - HTTP_PROXY=${HTTP_PROXY}
+    #   - HTTPS_PROXY=${HTTPS_PROXY}
+volumes:
+  static_volume:

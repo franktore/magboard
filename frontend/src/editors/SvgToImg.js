@@ -30,7 +30,7 @@ class SvgToImg extends Component {
 			);
 			// save image
 			canvas.toBlob(function(blob) {
-				FileSaver.saveAs(blob, "tactics-board.png");
+				FileSaver.saveAs(blob, "magboard.png");
 			});
 			// clear everything
 			this._refRenderer.current.innerHTML = '';
