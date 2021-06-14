@@ -77,9 +77,37 @@ class PitchEdit extends Component {
 		this.hMouseUp = this.hMouseUp.bind(this);
 		this.hMouseMove = this.hMouseMove.bind(this);
 		this.textEditDone = this.textEditDone.bind(this);
-		
+		this.touchHandler = this.touchHandler.bind(this);
+
 		// callbacks
 		this.playerEditDone = this.playerEditDone.bind(this);
+	}
+
+	touchHandler(event)
+	{
+		var touches = event.changedTouches,
+			first = touches[0],
+			type = "";
+		switch(event.type)
+		{
+			case "touchstart": type = "mousedown"; break;
+			case "touchmove":  type = "mousemove"; break;        
+			case "touchend":   type = "mouseup";   break;
+			default:           return;
+		}
+	
+		// initMouseEvent(type, canBubble, cancelable, view, clickCount, 
+		//                screenX, screenY, clientX, clientY, ctrlKey, 
+		//                altKey, shiftKey, metaKey, button, relatedTarget);
+	
+		var simulatedEvent = document.createEvent("MouseEvent");
+		simulatedEvent.initMouseEvent(type, true, true, window, 1, 
+									  first.screenX, first.screenY, 
+									  first.clientX, first.clientY, false, 
+									  false, false, false, 0/*left*/, null);
+	
+		first.target.dispatchEvent(simulatedEvent);
+		event.preventDefault();
 	}
 
 	getScale() {
@@ -459,7 +487,8 @@ class PitchEdit extends Component {
 		return (
 			<React.Fragment>
 			<div ref={this._editRef} className={pitchClasses}>
-				<svg xmlns='http://www.w3.org/2000/svg' viewBox={viewBox} onContextMenu={this.hContextMenu} onMouseDown={this.hMouseDown} onMouseUp={this.hMouseUp} onMouseMove={this.hMouseMove}>
+				<svg xmlns='http://www.w3.org/2000/svg' viewBox={viewBox} onContextMenu={this.hContextMenu} onMouseDown={this.hMouseDown} onMouseUp={this.hMouseUp} onMouseMove={this.hMouseMove}
+				onTouchStart={this.touchHandler} onTouchEnd={this.touchHandler} onTouchMove={this.touchHandler}>
 					<style>
 						{this.generatePicthStyles()}
 					</style>
