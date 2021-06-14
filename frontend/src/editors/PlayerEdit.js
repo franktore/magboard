@@ -10,7 +10,7 @@ class PlayerEdit extends Component {
 		const transform = 'translate(' + pl.x + ' ' + pl.y + ')';
 		return (
 			<g className={className} textAnchor="middle" transform={transform}>
-				<circle r="50" cx="50" cy="70" className="draggable" data-ref={pl.id} />
+				<circle r="100" cx="50" cy="70" className="draggable" data-ref={pl.id} />
 				<text className="number" x="50" y="70" dominantBaseline="central">{pl.no}</text>
 				<text x="50">{pl.name}</text>
 			</g>

@@ -48,7 +48,7 @@ class PitchFutsal {
 			let number = groupSize - (i % groupSize);
 			let player = new Player(
 				ElementIDPrefix.Player + i, number, "", color,
-				color * playerSize, 0,
+				color * playerSize+150, 0,
 				0,
 				color * playerSize, 0,
 				number

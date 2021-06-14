@@ -111,11 +111,11 @@ class AppTools extends Component {
 		return (
 			<React.Fragment>
 				<AppBar position="fixed">
-					<Toolbar variant="regular">
+					<Toolbar variant="dense">
 						<IconButton edge="start" color="inherit" aria-label="menu" onClick={this.toggleDrawer}>
 							<MenuIcon />
 						</IconButton>
-						<Typography variant="h6" color="inherit">Futsal tactics board</Typography>
+						<Typography variant="h6" color="inherit">game magnetic board</Typography>
 						<div className={this.props.classes.grow} />
 						<Tooltip title="Selected draw mode">
 							<IconButton ref={this._refOpenDrawMenu} aria-label="Selected draw mode" color="inherit" onClick={this.drawMenuOpen}>

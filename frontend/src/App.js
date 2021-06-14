@@ -40,8 +40,8 @@ class App extends Component {
 	DefaultPitch() {
 		let pitch = new PitchFutsal();
 		pitch.initDefault(
-			200, 8, 120, 
-			100, 5, 80
+			22, 2, 280,
+			100, 5, 150
 		);
 		return pitch;
 	}
