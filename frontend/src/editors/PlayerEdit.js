@@ -12,7 +12,7 @@ class PlayerEdit extends Component {
 			<g className={className} textAnchor="middle" transform={transform}>
 				<circle r="100" cx="50" cy="70" className="draggable" data-ref={pl.id} />
 				<text className="number" x="50" y="70" dominantBaseline="central">{pl.no}</text>
-				<text x="50">{pl.name}</text>
+				<text x="50" y="30" fontSize="54">{pl.name}</text>
 			</g>
 		);
 	}

@@ -41,7 +41,7 @@ class App extends Component {
 		let pitch = new PitchFutsal();
 		pitch.initDefault(
 			22, 2, 280,
-			100, 5, 150
+			10, 2, 180
 		);
 		return pitch;
 	}

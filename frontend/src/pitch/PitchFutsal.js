@@ -46,11 +46,79 @@ class PitchFutsal {
 		for (var i = 0; i < noPlayers; i++) {
 			let color = Math.floor(i / groupSize);
 			let number = groupSize - (i % groupSize);
+			let default_x = color * playerSize+250;
+			let default_y = 0;
+			let x = 0;
+			let y = 0;
+			if (color === 0) {
+				color = color + 0;
+				switch (number) {
+					case 1:
+						x = 500;
+						y = -1600;
+						break;
+					case 2:
+						x = 500;
+						y = -600;
+						break;
+					case 3:
+						x = 600;
+						y = -1100;
+						break;
+					case 4:
+						x = 1600;
+						y = -1600;
+						break;
+					case 5:
+						x = 1600;
+						y = -1100;
+						break;
+					case 6:
+						x = 1600;
+						y = -600;
+						break;
+					default:
+						x = default_x;
+						y = default_y;
+				}
+			}
+			else if (color === 1) {
+				color = color + 2;
+				switch (number) {
+					case 1:
+						x = 3400;
+						y = -1600;
+						break;
+					case 2:
+						x = 3400;
+						y = -600;
+						break;
+					case 3:
+						x = 3300;
+						y = -1100;
+						break;
+					case 4:
+						x = 2300;
+						y = -1600;
+						break;
+					case 5:
+						x = 2300;
+						y = -1100;
+						break;
+					case 6:
+						x = 2300;
+						y = -600;
+						break;
+					default:
+						x = default_x;
+						y = default_y;
+				}
+			}
 			let player = new Player(
 				ElementIDPrefix.Player + i, number, "", color,
-				color * playerSize+150, 0,
+				x, y,
 				0,
-				color * playerSize, 0,
+				x, y,
 				number
 			);
 			this.players.push(player);
@@ -60,12 +128,16 @@ class PitchFutsal {
 	_initBalls(noBalls, noBallColors, ballSize) {
 		let groupSize = Math.floor(noBalls / noBallColors);
 		for (var i = 0; i < noBalls; i++) {
-			let color = Math.floor(i / groupSize);
+			let color = Math.floor(i / groupSize) + 3;
 			let ball = new Ball(
 				ElementIDPrefix.Ball + i, color,
 				color * ballSize,0,
 				color * ballSize,0
 			);
+			if (i===noBalls-1) {
+				ball.x=920;
+				ball.y=-1130;
+			}
 			this.balls.push(ball);
 		}
 	}
@@ -192,6 +264,24 @@ class PitchFutsal {
 	// remove empty lines
 	lineCleanup() {
 		this.lines = this.lines.filter(l => !l.empty());
+		this._modified();
+	}
+
+	lineMove(id, deltaX, deltaY) {
+		this.lines = this.lines.map(l => {
+			let idstr = 'ln'+id
+			if (idstr === l.id) {
+				l.p1.x += deltaX;
+				l.p1.y += deltaY;
+				l.p2.x += deltaX;
+				l.p2.y += deltaY;
+				l.c1.x += deltaX;
+				l.c1.y += deltaY;
+				l.c2.x += deltaX;
+				l.c2.y += deltaY;
+			}
+			return l;
+		});
 		this._modified();
 	}
 

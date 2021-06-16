@@ -34,7 +34,8 @@ const DragObject = {
 	EditLineP1: 10,
 	EditLineC1: 11,
 	EditLineC2: 12,
-	EditLineP2: 13
+	EditLineP2: 13,
+	Line: 14
 };
 
 // defines way to check draggable object
@@ -50,7 +51,8 @@ const DragObjectCheck = [
 	{prefix: "edit-l1-", removePrefix: true, typ:  DragObject.EditLineP1},
 	{prefix: "edit-l2-", removePrefix: true, typ:  DragObject.EditLineC1},
 	{prefix: "edit-l3-", removePrefix: true, typ:  DragObject.EditLineC2},
-	{prefix: "edit-l4-", removePrefix: true, typ:  DragObject.EditLineP2}
+	{prefix: "edit-l4-", removePrefix: true, typ:  DragObject.EditLineP2},
+	{prefix: "ln", removePrefix: true, typ:  DragObject.Line}
 ];
 
 
@@ -177,6 +179,20 @@ class PitchEdit extends Component {
 		this.props.pitch.playerEditDone(player);
 	}
 
+	lineEditStarted(editNode) {
+		const editLine = this.props.pitch.lineEditStart(editNode);
+		if (null === editLine) {
+			return false;
+		}
+		this._lineDialogRef.current.openDialog(editLine);
+		return true;
+	}
+
+	// line edit dialog callback
+	lineEditDone(line) {
+		this.props.pitch.lineEditDone(line);
+	}
+
 	objectDrag(posX, posY, deltaX, deltaY, snap) {
 		const p = this.props.pitch;
 		switch (this._dragObjectType) {
@@ -215,6 +231,9 @@ class PitchEdit extends Component {
 				break;
 			case DragObject.EditLineP2:
 				p.lineEdit('p2', this._dragNode, deltaX, deltaY);
+				break;
+			case DragObject.Line:
+				p.lineMove(this._dragNode, deltaX, deltaY);
 				break;
 			default:
 				console.log("Invalid drag object type", this._dragObjectType, this._dragNode);

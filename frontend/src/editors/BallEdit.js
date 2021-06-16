@@ -19,7 +19,7 @@ class BallEdit extends Component {
 		const ball = b.color === 4 ? this.ballImage() : null;
 		return (
 			<g className={className} transform={transform}>
-				<circle r="40" cx="30" cy="30" className="draggable" data-ref={b.id} />
+				<circle r="60" cx="30" cy="30" className="draggable" data-ref={b.id} />
 				{ball}
 			</g>
 		);

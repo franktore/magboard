@@ -34,6 +34,7 @@ class LineEdit extends Component {
 		const allPaths = l.paths().map((p, index) => this.renderPath(p, index.toString()));
 		return (
 			<g className={className}>
+				<circle r="10" cx={l.c2.x} cy={l.c2.y} className="draggable" data-ref={l.id} />
 				{allPaths}
 				{this.editHandles(l)}
 			</g>
