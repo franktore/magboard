@@ -62,7 +62,7 @@ class PitchFutsal {
 		this.lines = []
 		if (lines_tmp != null) {
 			for (const l of lines_tmp) {
-				let lin = new Line(this.lineNewID(), l.color, l.p1, l.p2, l.c1, l.c2, l.arrowStart, l.arrowEnd, l.dashed)
+				let lin = new Line(this.lineNewID(), l.color, new Point(l.p1.x, l.p1.y), new Point(l.p2.x, l.p2.y), new Point(l.c1.x, l.c1.y), new Point(l.c2.x, l.c2.y), l.arrowStart, l.arrowEnd, l.dashed)
 				this.lines = this.lines.map((lx) => lx);
 				this.lines.push(lin);
 			}
