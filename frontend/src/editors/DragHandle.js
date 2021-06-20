@@ -15,7 +15,7 @@ class DragHandle extends Component {
 
 DragHandle.defaultProps = {
 	id: "",
-	size: 50,
+	size: 70,
 	position: null
 }
 

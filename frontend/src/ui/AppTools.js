@@ -19,6 +19,7 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import MovieCreationIcon from '@material-ui/icons/MovieCreation';
 import LinkIcon from '@material-ui/icons/Link';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import ClearLinesIcon from '@material-ui/icons/ClearSharp';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import { CursorDefault, VectorLine, ShapeSquarePlus, ShapeOvalPlus } from 'mdi-material-ui';
 import DrawMenu from './DrawMenu';
@@ -130,6 +131,11 @@ class AppTools extends Component {
 						<Tooltip title="Share link">
 							<IconButton aria-label="Share link" color="inherit">
 								<LinkIcon />
+							</IconButton>
+						</Tooltip>
+						<Tooltip title="Clear lines">
+							<IconButton aria-label="Clear lines" color="inherit" onClick={this.props.clearLines}>
+								<ClearLinesIcon />
 							</IconButton>
 						</Tooltip>
 						<FullscreenToggle />

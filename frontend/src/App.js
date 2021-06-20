@@ -25,9 +25,10 @@ class App extends Component {
 		this.PitchReset = this.PitchReset.bind(this);
 		this.OnPitchModified = this.OnPitchModified.bind(this);
 		this.OnDrawModeModified = this.OnDrawModeModified.bind(this);
+		this.ClearLines = this.ClearLines.bind(this);
 
 		// init default state
-		this.pitch = this.DefaultPitch();
+		this.pitch = this.DefaultPitch(false);
 		this.pitch.onModified = this.OnPitchModified;
 		this.drawMode = new DrawMode();
 		this.drawMode.onModified = this.OnDrawModeModified;
@@ -36,12 +37,13 @@ class App extends Component {
 			drawMode: this.drawMode
 		}
 	}
-	
-	DefaultPitch() {
+
+	DefaultPitch(fullReset) {
 		let pitch = new PitchFutsal();
 		pitch.initDefault(
 			22, 2, 280,
-			10, 2, 180
+			10, 2, 180,
+			fullReset
 		);
 		return pitch;
 	}
@@ -49,7 +51,7 @@ class App extends Component {
 	PitchReset() {
 		console.log("Pitch reset");
 		this.pitch.onModified = null;
-		this.pitch = this.DefaultPitch();
+		this.pitch = this.DefaultPitch(true);
 		this.pitch.onModified = this.OnPitchModified;
 		this.drawMode.onModified = null;
 		this.drawMode = new DrawMode();
@@ -108,13 +110,23 @@ class App extends Component {
 		);
 	}
 
+	ClearLines() {
+		console.log("Clear lines");
+		localStorage.removeItem('lines');
+		this.pitch.initDefault(
+			22, 2, 280,
+			10, 2, 180,
+			false
+		);
+	}
+
 	render() {
 		return (
 			<React.Fragment>
 				<ThemeProvider theme={this.appTheme}>
-					<AppTools ref={this.refAppTools} drawMode={this.state.drawMode} saveImage={this.SaveImage} createNewScheme={this.CreateNewScheme} createNewAnimation={this.CreateNewAnimation} />
+					<AppTools ref={this.refAppTools} drawMode={this.state.drawMode} saveImage={this.SaveImage} clearLines={this.ClearLines} createNewScheme={this.CreateNewScheme} createNewAnimation={this.CreateNewAnimation} />
 					<PitchEdit ref={this.refPitchEdit} pitch={this.state.pitch} drawMode={this.state.drawMode} viewBoxLeft={0} viewBoxTop={0} viewBoxRight={4500} viewBoxBottom={2500} />
-					<ConfirmDialog ref={this.refConfirmDialog} />
+					<ConfirmDialog ref={this.refConfirmDialog}/>
 					<SvgToImg ref={this.refSvgToImg} />
 				</ThemeProvider>
 			</React.Fragment>

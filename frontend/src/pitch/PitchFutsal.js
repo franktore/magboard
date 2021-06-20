@@ -36,9 +36,37 @@ class PitchFutsal {
 		this.onModified = null;
 	}
 
-	initDefault(noPlayers, noPlayerColors, playerSize, noBalls, noBallColors, ballSize) {
-		this._initPlayers(noPlayers, noPlayerColors, playerSize);
+	initDefault(noPlayers, noPlayerColors, playerSize, noBalls, noBallColors, ballSize, fullReset) {
+		let player_tmp = JSON.parse(localStorage.getItem("players"));
+		if (!fullReset && player_tmp != null) {
+			for (const p of player_tmp) {
+				let player = new Player(
+					p.id, p.no, p.name, p.color,
+					p.x, p.y,
+					p.rotation,
+					p.xDefault, p.yDefault,
+					p.noDefault
+				);
+				this.players.push(player)
+			}
+		}
+		else
+		{
+			this._initPlayers(noPlayers, noPlayerColors, playerSize);
+		}
 		this._initBalls(noBalls, noBallColors, ballSize);
+		let lines_tmp = JSON.parse(localStorage.getItem("lines"));
+		for (const l of this.lines) {
+			l.empty()
+		}
+		this.lines = []
+		if (lines_tmp != null) {
+			for (const l of lines_tmp) {
+				let lin = new Line(this.lineNewID(), l.color, l.p1, l.p2, l.c1, l.c2, l.arrowStart, l.arrowEnd, l.dashed)
+				this.lines = this.lines.map((lx) => lx);
+				this.lines.push(lin);
+			}
+		}
 	}
 
 	_initPlayers(noPlayers, noPlayerColors, playerSize) {
@@ -118,7 +146,7 @@ class PitchFutsal {
 				ElementIDPrefix.Player + i, number, "", color,
 				x, y,
 				0,
-				x, y,
+				default_x, default_y,
 				number
 			);
 			this.players.push(player);
@@ -160,6 +188,9 @@ class PitchFutsal {
 		if (null !== this.onModified) {
 			this.onModified(cp);
 		}
+
+		localStorage.setItem("players", JSON.stringify(this.players));
+		localStorage.setItem("lines", JSON.stringify(this.lines));
 	}
 
 	playerMove(id, deltaX, deltaY) {
@@ -206,7 +237,6 @@ class PitchFutsal {
 		});
 		this._modified();
 	}
-
 
 	ballMove(id, deltaX, deltaY) {
 		this.balls = this.balls.map(b => {
