@@ -102,12 +102,17 @@ class AppTools extends Component {
 		}
 	}
 
+	clearLinesIcon() {
+		return(<ClearLinesIcon/>);
+	}
+
 	paletteDialogRef() {
 		return this._refPaletteDialog.current;
 	}
 
 	render() {
 		const drawingModeIcon = this.drawingModeIcon();
+		const clearLinesIcon = this.clearLinesIcon();
 
 		return (
 			<React.Fragment>
@@ -116,7 +121,7 @@ class AppTools extends Component {
 						<IconButton edge="start" color="inherit" aria-label="menu" onClick={this.toggleDrawer}>
 							<MenuIcon />
 						</IconButton>
-						<Typography variant="h6" color="inherit">magboard</Typography>
+						<Typography variant="h6" color="inherit">tactics</Typography>
 						<div className={this.props.classes.grow} />
 						<Tooltip title="Selected draw mode">
 							<IconButton ref={this._refOpenDrawMenu} aria-label="Selected draw mode" color="inherit" onClick={this.drawMenuOpen}>
@@ -135,7 +140,7 @@ class AppTools extends Component {
 						</Tooltip>
 						<Tooltip title="Clear lines">
 							<IconButton aria-label="Clear lines" color="inherit" onClick={this.props.clearLines}>
-								<ClearLinesIcon />
+								{clearLinesIcon}
 							</IconButton>
 						</Tooltip>
 						<FullscreenToggle />

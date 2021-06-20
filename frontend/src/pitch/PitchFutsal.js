@@ -186,11 +186,10 @@ class PitchFutsal {
 		cp._overlay = this.overlay;
 		// trigger event modified
 		if (null !== this.onModified) {
+			localStorage.setItem("players", JSON.stringify(this.players));
+			localStorage.setItem("lines", JSON.stringify(this.lines));
 			this.onModified(cp);
 		}
-
-		localStorage.setItem("players", JSON.stringify(this.players));
-		localStorage.setItem("lines", JSON.stringify(this.lines));
 	}
 
 	playerMove(id, deltaX, deltaY) {
@@ -415,6 +414,7 @@ class PitchFutsal {
 			el.isEdit = false;
 			return el;
 		});
+		this._modified();
 	}
 
 	squareNewID() {
@@ -496,6 +496,7 @@ class PitchFutsal {
 			sq.isEdit = false;
 			return sq;
 		});
+		this._modified();
 	}
 
 	textNewID() {
